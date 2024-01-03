@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 public class EmployeeService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    /*@Autowired
+    private MongoTemplate mongoTemplate;*/
 
 }

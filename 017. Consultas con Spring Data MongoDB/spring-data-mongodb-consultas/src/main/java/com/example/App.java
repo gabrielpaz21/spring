@@ -46,7 +46,7 @@ public class App {
         System.out.println("\nfindAllByBirthDateAfterQuery");
         repo.findAllByBirthDateAfterQuery(LocalDate.of(1985, 1,1)).forEach(System.out::println);
 
-        System.out.println("\nfindAllByBirthDateAfterQuery");
+        System.out.println("\nfindAllByInitAndEndDates");
         repo.findAllByInitAndEndDates(LocalDate.of(1993, 1,1), LocalDate.of(1997,1,1)).forEach(System.out::println);
 
         System.out.println("\nfindAllIdAndName");

@@ -5,7 +5,7 @@ import org.springframework.messaging.core.MessageSendingOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
-import javax.websocket.OnMessage;
+import jakarta.websocket.OnMessage;
 
 @Controller
 public class ScheduledEndpoint {

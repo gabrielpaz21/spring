@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.3</version>
+        <version>3.2.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -14,7 +14,7 @@
     <name>spring-websockets</name>
     <description>spring-websockets</description>
     <properties>
-        <java.version>18</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>3.6.1</version>
+            <version>3.7.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
         <dependency>
@@ -62,7 +62,12 @@
             <artifactId>stomp-websocket</artifactId>
             <version>2.3.4</version>
         </dependency>
-
+        <dependency>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-api</artifactId>
+            <version>2.0.0</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 

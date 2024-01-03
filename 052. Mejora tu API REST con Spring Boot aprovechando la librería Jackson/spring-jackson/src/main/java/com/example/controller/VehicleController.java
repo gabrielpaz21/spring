@@ -25,7 +25,8 @@ public class VehicleController {
     }
 
     @PostMapping
-    public void create(@RequestBody Vehicle vehicle){
+    public Vehicle create(@RequestBody Vehicle vehicle){
         System.out.println(vehicle);
+        return vehicle;
     }
 }

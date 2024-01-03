@@ -2,7 +2,7 @@ package com.example.model;
 
 import org.springframework.data.rest.core.annotation.RestResource;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customers")
