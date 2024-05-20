@@ -13,6 +13,7 @@ public class App {
         ApplicationContext context = SpringApplication.run(App.class, args);
         var repo = context.getBean(ManufacturerRepository.class);
         repo.save(new Manufacturer(null, "manufacturer1", 1000, 1990));
+
     }
 
 }

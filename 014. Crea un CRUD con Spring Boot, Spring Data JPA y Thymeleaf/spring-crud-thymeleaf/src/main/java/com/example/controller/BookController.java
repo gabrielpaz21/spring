@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.model.Book;
 import com.example.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +14,21 @@ Update
 Delete
  */
 @Controller
-
 public class BookController {
 
-    @Autowired
-    private BookRepository repository;
+    private static final String REDIRECT_BOOKS = "redirect:/books";
+
+    private final BookRepository repository;
+
+    public BookController(BookRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping("/")
     public String index(){
-        return "redirect:/books";
+        return REDIRECT_BOOKS;
     }
+
     @GetMapping("/books")
     public String findAll(Model model){
         model.addAttribute("books", repository.findAll());
@@ -57,7 +61,7 @@ public class BookController {
     @PostMapping("/books")
     public String create(@ModelAttribute Book book){
         if(book.getId() != null){
-            // actualización
+            // update
             repository.findById(book.getId()).ifPresent(b -> {
                 b.setTitle(book.getTitle());
                 b.setAuthor(book.getAuthor());
@@ -65,19 +69,17 @@ public class BookController {
                 repository.save(b);
             });
         } else{
-            // creación
+            // creation
             repository.save(book);
         }
-        return "redirect:/books";
+        return REDIRECT_BOOKS;
     }
 
     @GetMapping("/books/delete/{id}")
     public String deleteById(@PathVariable Long id){
         if(repository.existsById(id))
             repository.deleteById(id);
-        return "redirect:/books";
+        return REDIRECT_BOOKS;
     }
-
-
 
 }
