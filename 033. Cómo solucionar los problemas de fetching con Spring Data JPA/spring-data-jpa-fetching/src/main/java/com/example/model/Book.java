@@ -2,7 +2,7 @@ package com.example.model;
 
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 //@Where(clause = "author_id is not null")
 @Entity

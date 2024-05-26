@@ -14,4 +14,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     // Hibernate 6
     @Query("SELECT a FROM Author a inner join fetch a.books")
     List<Author> findWithBooks();
+
+    // Hibernate 6
+    @Query("SELECT distinct a FROM Author a inner join fetch a.books")
+    List<Author> findWithBooks2();
 }

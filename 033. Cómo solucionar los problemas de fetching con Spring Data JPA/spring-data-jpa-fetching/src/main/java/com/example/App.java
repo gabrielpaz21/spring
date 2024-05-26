@@ -44,11 +44,11 @@ public class App {
         Book book8 = new Book(null, "book8", "editorial1", null);
         bookRepo.saveAll(List.of(book1, book2, book3, book4, book5, book6, book7, book8));
 
-//        bookRepo.findAll().forEach(System.out::println);
-//
+        bookRepo.findAll().forEach(System.out::println);
+
 //        bookRepo.findAll().forEach(book -> {
 //            System.out.println(book.getTitle());
-////            System.out.println(book.getAuthor().getName());
+//            System.out.println(book.getAuthor().getName());
 //        });
 //
 //        bookRepo.findAllWithAuthor().forEach(book -> {
@@ -57,7 +57,7 @@ public class App {
 //
 //        bookRepo.findAllWithAuthorByName("author2").forEach(book -> {
 //            System.out.println(book.getAuthor().getName());
-////            System.out.println(book.getAuthor().getAddress().getCity());
+//            System.out.println(book.getAuthor().getAddress().getCity());
 //        });
 //
 //        bookRepo.findAllWithAuthorAndAddress().forEach(book -> {
@@ -66,10 +66,14 @@ public class App {
 //
 //        authorRepo.findById(2L).ifPresent(author -> {
 //            System.out.println(author.getName());
-////            System.out.println(author.getBooks().size());
+//            //System.out.println(author.getBooks().size());
 //        });
 //
 //        authorRepo.findWithBooks().forEach(author -> {
+//            System.out.println(author.getName());
+//            System.out.println(author.getBooks().size());
+//        });
+//        authorRepo.findWithBooks2().forEach(author -> {
 //            System.out.println(author.getName());
 //            System.out.println(author.getBooks().size());
 //        });
@@ -78,11 +82,13 @@ public class App {
 //            System.out.println(book.getTitle());
 //        });
 
-        bookRepo.findViewByTitleLike("book%").forEach(book -> {
-            System.out.println(book.getBookTitle());
-            System.out.println(book.getAuthorName());
-            System.out.println(book.getAuthorCity());
-        });
+//        bookRepo.findViewByTitleLike("book%").forEach(book -> {
+//            System.out.println("===================");
+//            System.out.println(book.getBookTitle());
+//            System.out.println(book.getAuthorName());
+//            System.out.println(book.getAuthorCity());
+//            System.out.println("===================");
+//        });
     }
 
 }
