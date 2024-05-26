@@ -16,13 +16,13 @@ import org.springframework.restdocs.RestDocumentationContext;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -31,13 +31,14 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(RestDocumentationExtension.class)
 @WebMvcTest(CustomerController.class)
-public class CustomerControllerTest {
+ class CustomerControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -49,7 +50,7 @@ public class CustomerControllerTest {
     CustomerRepository customerRepository;
 
     @BeforeEach
-    void setUp(WebApplicationContext context, RestDocumentationContextProvider restDocumentation) throws Exception{
+    void setUp(WebApplicationContext context, RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .apply(documentationConfiguration(restDocumentation))
                 .alwaysDo(document("customers-{method-name}",  // alwaysDo opcional
@@ -59,7 +60,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void findAll() throws Exception {
+     void findAll() throws Exception {
         List<Customer> customers = List.of(
                 new Customer(1L, "cust1", 34),
                 new Customer(2L, "cust2", 34),
@@ -77,7 +78,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void findById() throws Exception {
+     void findById() throws Exception {
         Customer cust1 = new Customer(1L, "cust1", 34);
         when(customerRepository.findById(1L)).thenReturn(Optional.of(cust1));
 
@@ -96,7 +97,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void create() throws Exception {
+     void create() throws Exception {
         Customer customer = new Customer(null, "cust1", 34);
         Customer savedCustomer = new Customer(1L, "cust1", 34);
 
@@ -115,17 +116,17 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void updateSuccess() throws Exception {
+     void updateSuccess() throws Exception {
         Customer customer = new Customer(1L, "cust1", 34);
         Customer updatedCustomer = new Customer(1L, "cust1 edited", 34);
 
         when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
         when(customerRepository.save(any())).thenReturn(updatedCustomer);
 
-        var mockRequest = MockMvcRequestBuilders.put("/api/customers")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/api/customers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(this.mapper.writeValueAsString(updatedCustomer));
+                .content(this.mapper.writeValueAsString(customer));
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -134,7 +135,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void updateNullId() throws Exception {
+     void updateNullId() throws Exception {
         Customer customer = new Customer(null, "cust1 edited", 34);
 
         var mockRequest = MockMvcRequestBuilders.put("/api/customers")
@@ -145,13 +146,13 @@ public class CustomerControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isBadRequest())
                 .andExpect(result ->
-                        assertTrue(result.getResolvedException() instanceof BadRequestException))
+                        assertInstanceOf(BadRequestException.class, result.getResolvedException()))
                 .andExpect(result ->
-                        assertEquals("id customer can not be null", result.getResolvedException().getMessage()));
+                        assertEquals("id customer can not be null", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
     @Test
-    public void updateNotFound() throws Exception {
+     void updateNotFound() throws Exception {
         Customer customer = new Customer(1L, "cust1 edited", 34);
 
         when(customerRepository.findById(customer.getId())).thenReturn(Optional.empty());
@@ -166,7 +167,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void deleteByIdSuccess() throws Exception {
+     void deleteByIdSuccess() throws Exception {
         when(customerRepository.existsById(1L)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -176,7 +177,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void deleteByIdNotFound() throws Exception {
+     void deleteByIdNotFound() throws Exception {
         when(customerRepository.existsById(1L)).thenReturn(false);
 
         mockMvc.perform(MockMvcRequestBuilders
