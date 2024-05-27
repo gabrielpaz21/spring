@@ -93,7 +93,7 @@ public class App {
 //                System.out.println(rating.getUser().getEmail());
 //            });
 //        });
-
+//
 //        bookRepo.findAllWithCategories().forEach(book -> {
 //            System.out.println(book.getCategories().size());
 //            //System.out.println(book.getRatings().size());
