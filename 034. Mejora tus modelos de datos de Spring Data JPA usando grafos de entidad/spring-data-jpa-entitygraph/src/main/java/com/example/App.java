@@ -53,41 +53,52 @@ public class App {
         var rating6 = new Rating(null, 5.0, "good", book3, user2);
         ratingRepo.saveAll(List.of(rating1, rating2, rating3, rating4, rating5, rating6));
 
-        bookRepo.findAllByAuthor("author1").forEach(book -> {
-            System.out.println(book.getCategories().size());
+//        bookRepo.findAll().forEach(book -> {
+//            System.out.print(book.getCategories().size());
 //            System.out.println(book.getRatings().size());
-        });
+//        });
 
-        bookRepo.findFirst10ByAuthor("author1").forEach(book -> {
+//        bookRepo.findAllByAuthor("author1").forEach(book -> {
 //            System.out.println(book.getCategories().size());
-            System.out.println(book.getRatings().size());
-        });
+////            System.out.println(book.getRatings().size());
+//        });
+//
+//        bookRepo.findFirst10ByAuthor("author1").forEach(book -> {
+////            System.out.println(book.getCategories().size());
+//            System.out.println(book.getRatings().size());
+//        });
+//
+//        bookRepo.findFirst15ByAuthor("author1").forEach(book -> {
+//            System.out.println(book.getCategories().size());
+//            System.out.println(book.getRatings().size());
+//        });
+//        bookRepo.findFirst20ByAuthor("author1").forEach(book -> {
+//            System.out.println(book.getCategories().size());
+//            System.out.println(book.getRatings().size());
+//        });
+//
+//
+//        bookRepo.findFirst25ByAuthor("author1").forEach(book -> {
+//            System.out.println(book.getCategories().size());
+//            System.out.println(book.getRatings().size());
+//            book.getRatings().forEach(rating -> {
+//                System.out.println(rating.getUser().getEmail());
+//            });
+//        });
+//
+//        bookRepo.findAllEager().forEach(book -> {
+//            System.out.println(book.getCategories().size());
+//            System.out.println(book.getRatings().size());
+//            book.getRatings().forEach(rating -> {
+//                System.out.println(rating.getUser().getEmail());
+//            });
+//        });
 
-        bookRepo.findFirst15ByAuthor("author1").forEach(book -> {
-            System.out.println(book.getCategories().size());
-            System.out.println(book.getRatings().size());
-        });
-        bookRepo.findFirst20ByAuthor("author1").forEach(book -> {
-            System.out.println(book.getCategories().size());
-            System.out.println(book.getRatings().size());
-        });
+//        bookRepo.findAllWithCategories().forEach(book -> {
+//            System.out.println(book.getCategories().size());
+//            //System.out.println(book.getRatings().size());
+//        });
 
-
-        bookRepo.findFirst25ByAuthor("author1").forEach(book -> {
-            System.out.println(book.getCategories().size());
-            System.out.println(book.getRatings().size());
-            book.getRatings().forEach(rating -> {
-                System.out.println(rating.getUser().getEmail());
-            });
-        });
-
-        bookRepo.findAllEager().forEach(book -> {
-            System.out.println(book.getCategories().size());
-            System.out.println(book.getRatings().size());
-            book.getRatings().forEach(rating -> {
-                System.out.println(rating.getUser().getEmail());
-            });
-        });
     }
 
 }
