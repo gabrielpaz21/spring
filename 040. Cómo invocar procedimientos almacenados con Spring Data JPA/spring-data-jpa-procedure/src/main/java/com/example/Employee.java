@@ -1,18 +1,17 @@
 package com.example;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-
-@NamedStoredProcedureQueries({
-        @NamedStoredProcedureQuery(
-                name = "employee_move_to_history",
-                procedureName = "employee_move_to_history",
-                parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "employee_id_in", type = Long.class),
-                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "status_out", type = Boolean.class)
-                }
-        )
-})
+//@NamedStoredProcedureQueries({
+//        @NamedStoredProcedureQuery(
+//                name = "employee_move_to_history",
+//                procedureName = "employee_move_to_history",
+//                parameters = {
+//                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "employee_id_in", type = Long.class),
+//                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "status_out", type = Boolean.class)
+//                }
+//        )
+//})
 @Entity
 public class Employee {
 
