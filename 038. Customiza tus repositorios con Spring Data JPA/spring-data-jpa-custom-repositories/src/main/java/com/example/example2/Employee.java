@@ -1,6 +1,6 @@
 package com.example.example2;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Entity
 public class Employee extends BaseUser{

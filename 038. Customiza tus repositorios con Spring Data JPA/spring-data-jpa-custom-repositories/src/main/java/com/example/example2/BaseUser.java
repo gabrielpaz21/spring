@@ -1,6 +1,6 @@
 package com.example.example2;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Inheritance
