@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.LockModeType;
-import javax.persistence.QueryHint;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {

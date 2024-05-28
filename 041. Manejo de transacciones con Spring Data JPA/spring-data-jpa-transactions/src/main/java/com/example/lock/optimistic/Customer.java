@@ -3,7 +3,7 @@ package com.example.lock.optimistic;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Customer {

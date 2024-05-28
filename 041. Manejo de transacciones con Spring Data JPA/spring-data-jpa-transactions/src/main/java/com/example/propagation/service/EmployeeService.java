@@ -2,7 +2,6 @@ package com.example.propagation.service;
 
 import com.example.propagation.model.Employee;
 import com.example.propagation.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeService {
 
-    @Autowired
-    private EmployeeRepository repository;
+    private final EmployeeRepository repository;
 
+    public EmployeeService(EmployeeRepository repository) {
+        this.repository = repository;
+    }
 
     @Transactional(readOnly = true)
     public Map<String, List<Employee>> findAllByCategories(List<String> categories){
@@ -31,12 +32,12 @@ public class EmployeeService {
         this.repository.save(new Employee(null, "emp7", "cat2"));
         this.saveWithException();
     }
+
     public void saveWithoutRollback() throws SQLException {
         this.repository.save(new Employee(null, "emp6", "cat1"));
         this.repository.save(new Employee(null, "emp7", "cat2"));
         this.saveWithException();
     }
-
 
     public void saveWithException() throws SQLException {
         this.repository.save(new Employee(null, "emp8", "cat2"));
@@ -47,10 +48,9 @@ public class EmployeeService {
         repository.save(user);
     }
 
-
-
     @Transactional
     public void deleteByCategory(String category) {
         repository.deleteByCategory(category);
     }
+
 }

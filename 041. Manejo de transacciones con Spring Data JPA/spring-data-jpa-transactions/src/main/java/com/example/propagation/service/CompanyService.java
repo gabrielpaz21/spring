@@ -10,11 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CompanyService {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
-    @Autowired
-    private EmployeeAddressService employeeAddressService;
+    private final EmployeeAddressService employeeAddressService;
+
+    public CompanyService(EmployeeService employeeService, EmployeeAddressService employeeAddressService) {
+        this.employeeService = employeeService;
+        this.employeeAddressService = employeeAddressService;
+    }
 
     @Transactional
     public void joinCompany(Employee employee, EmployeeAddress employeeAddress) {

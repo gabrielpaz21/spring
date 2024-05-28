@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +39,7 @@ class TransactionalTest {
     @Test
     void readOnlyTransaction() {
         var employees = employeeService.findAllByCategories(List.of("cat1", "cat2"));
-        int size = employees.values().stream().flatMap(List::stream).toList().size();
+        int size = employees.values().stream().flatMap(Collection::stream).toList().size();
         System.out.println(size);
 
     }
@@ -61,9 +62,11 @@ class TransactionalTest {
 //            assertEquals(count + 3, employeeRepository.count());
 
             employeeService.saveWithRollback();
-            assertEquals(count, employeeRepository.count());
+//            assertEquals(count, employeeRepository.count());
 
         } catch (Exception e) {
         }
+//        assertEquals(count + 3, employeeRepository.count());
+        assertEquals(count, employeeRepository.count());
     }
 }
