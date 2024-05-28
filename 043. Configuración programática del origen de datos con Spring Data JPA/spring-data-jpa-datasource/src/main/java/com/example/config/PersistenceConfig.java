@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,14 +24,15 @@ public class PersistenceConfig {
         props.put("hibernate.show_sql", "true");
         props.put("hibernate.format_sql", "true");
 //        props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        props.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-//        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
+//        props.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         props.put("hibernate.session.events.log.LOG_QUERIES_SLOWER_THAN_MS", "1");
 
         var em = builder.dataSource(dataSource).packages(App.class.getPackage().getName()).build();
         em.setJpaPropertyMap(props);
         return em;
     }
+
     // H2 en memoria RAM
 //    @Bean
 //    public DataSource dataSource(){
@@ -55,27 +56,27 @@ public class PersistenceConfig {
 //    }
 
     // MySQL en localhost
-    @Bean
-    public DataSource dataSource(){
-
-        return DataSourceBuilder.create()
-                .driverClassName("com.mysql.cj.jdbc.Driver")
-                .url("jdbc:mysql://localhost:3306/spring_data_jpa_datasource?createDatabaseIfNotExist=true")
-                .username("root")
-                .password("admin")
-                .build();
-    }
-
-    // PostgreSQL en localhost
 //    @Bean
 //    public DataSource dataSource(){
 //
 //        return DataSourceBuilder.create()
-//                .driverClassName("org.postgresql.Driver")
-//                .url("jdbc:postgresql://localhost:5432/spring_data_jpa_datasource")
-//                .username("postgres")
-//                .password("admin")
+//                .driverClassName("com.mysql.cj.jdbc.Driver")
+//                .url("jdbc:mysql://localhost:3306/spring_data_jpa_datasource?createDatabaseIfNotExist=true")
+//                .username("root")
+////                .password("admin")
 //                .build();
 //    }
+
+    // PostgreSQL en localhost
+    @Bean
+    public DataSource dataSource(){
+
+        return DataSourceBuilder.create()
+                .driverClassName("org.postgresql.Driver")
+                .url("jdbc:postgresql://localhost:5432/spring_data_jpa_datasource?createDatabaseIfNotExist=true")
+                .username("postgres")
+                .password("admin")
+                .build();
+    }
 
 }
