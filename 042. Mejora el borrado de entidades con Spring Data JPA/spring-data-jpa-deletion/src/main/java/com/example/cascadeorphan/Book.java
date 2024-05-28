@@ -1,7 +1,6 @@
 package com.example.cascadeorphan;
 
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Book {
@@ -16,7 +15,6 @@ public class Book {
 
     @ManyToOne
     private Author author;
-
 
     public Book() {
     }

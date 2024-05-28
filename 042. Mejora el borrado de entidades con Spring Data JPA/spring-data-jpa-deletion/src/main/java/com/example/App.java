@@ -18,21 +18,21 @@ public class App {
     public static void main(String[] args) {
         ApplicationContext ctx = SpringApplication.run(App.class, args);
 
-        // @SQLDelete y @Where
-        var employeeRepo = ctx.getBean(EmployeeRepository.class);
-        employeeRepo.saveAll(List.of(
-                new Employee("John"),
-                new Employee("Jane"),
-                new Employee("John"),
-                new Employee("Jane")
-        ));
+        // @SQLDelete y @SQLRestriction
+//        var employeeRepo = ctx.getBean(EmployeeRepository.class);
+//        employeeRepo.saveAll(List.of(
+//                new Employee("John"),
+//                new Employee("Jane"),
+//                new Employee("John"),
+//                new Employee("Jane")
+//        ));
+//
+//        System.out.println(employeeRepo.findAll().size());
+//        employeeRepo.deleteById(2L);
+//        System.out.println(employeeRepo.findAll().size());
 
-        System.out.println(employeeRepo.findAll().size());
-        employeeRepo.deleteById(2L);
-        System.out.println(employeeRepo.findAll().size());
 
-
-        // cascade = CascadeType.REMOVE
+        // adding data to database
         var authorRepo = ctx.getBean(AuthorRepository.class);
         var bookRepo = ctx.getBean(BookRepository.class);
 
@@ -64,18 +64,18 @@ public class App {
 ////            author.getBooks().remove(author.getBooks().iterator().next());
 //            authorRepo.save(author);
 //        });
+
         // si es owner
 //        bookRepo.findByAuthorId(1L).forEach(book -> {
 //            book.setAuthor(null);
 //            bookRepo.save(book);
 //        });
 
-        // DESASOCIAR/ ELIMINAR MANUALMENTE orphanRemoval = true y cascade.ALL
+//        // DESASOCIAR/ ELIMINAR MANUALMENTE orphanRemoval = true y cascade.ALL
 //        authorRepo.findById(2L).ifPresent(author -> {
 //            author.getBooks().remove(author.getBooks().iterator().next());
 //            authorRepo.save(author);
 //        });
-
 
         // Desde repositorio
         bookRepo.deleteByAuthorIdQuery(1L);

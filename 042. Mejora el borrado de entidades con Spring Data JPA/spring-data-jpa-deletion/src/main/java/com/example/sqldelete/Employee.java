@@ -1,14 +1,14 @@
 package com.example.sqldelete;
 
-
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @SQLDelete(sql = "UPDATE Employee SET deleted = 1 WHERE id = ?")
-@Where(clause = "deleted = 0")
+@SQLRestriction("deleted = 0")
 @Entity
 public class Employee {
 
@@ -19,7 +19,8 @@ public class Employee {
     private String name;
 
 //    @Type(type= "true_false")
-    @Type(type= "org.hibernate.type.NumericBooleanType")
+//    @Type(type= "org.hibernate.type.NumericBooleanType")
+    @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
     private Boolean deleted;
 
     public Employee() {
