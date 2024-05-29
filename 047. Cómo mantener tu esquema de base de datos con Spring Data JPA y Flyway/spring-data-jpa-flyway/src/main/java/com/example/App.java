@@ -22,7 +22,7 @@ public class App {
                 .load();
 
         Arrays.stream(flyway.info().all()).forEach(migrations -> {
-            System.out.println("Version: " + migrations.getVersion().getVersion());
+            System.out.println("-------Version: " + migrations.getVersion().getVersion());
         });
 
     }

@@ -26,15 +26,13 @@ public class FlywayCallback implements Callback {
 
         if (event == Event.BEFORE_MIGRATE) {
             System.out.println("BEFORE_MIGRATE");
-        } else if (event == Event.AFTER_MIGRATE) {
-            System.out.println("AFTER_MIGRATE");
-        } else if (event == Event.BEFORE_EACH_MIGRATE) {
+        }else if (event == Event.BEFORE_EACH_MIGRATE) {
             System.out.println("BEFORE_EACH_MIGRATE");
             MigrationInfo migration = context.getMigrationInfo();
             System.out.println("Version: " + migration.getVersion().getVersion());
-
-
-        } else if (event == Event.AFTER_EACH_MIGRATE) {
+        } else if (event == Event.AFTER_MIGRATE) {
+            System.out.println("AFTER_MIGRATE");
+        }  else if (event == Event.AFTER_EACH_MIGRATE) {
             System.out.println("AFTER_EACH_MIGRATE");
         }
     }
