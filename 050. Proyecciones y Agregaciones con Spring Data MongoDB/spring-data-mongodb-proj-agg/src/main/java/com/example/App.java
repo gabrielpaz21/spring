@@ -48,7 +48,7 @@ public class App {
         System.out.println(repo.totalPrice());
 
         System.out.println("\ngroupPrice");
-        dao.groupPrice("cat1").forEach(System.out::println);;
+        dao.groupPrice("cat1").forEach(System.out::println);
     }
 
 }

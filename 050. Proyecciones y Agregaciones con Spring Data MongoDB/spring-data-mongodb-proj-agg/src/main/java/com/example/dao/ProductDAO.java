@@ -17,13 +17,13 @@ public class ProductDAO {
     @Autowired
     MongoTemplate mongo;
 
-    public List<Double> groupPrice(String category){
+    public List<PriceByManufacturer> groupPrice(String category){
         var agg = newAggregation(
                 match(Criteria.where("category").is(category)),
                 group("manufacturer").sum("price").as("totalPrice"),
                 project("totalPrice").and("manufacturer"),
                 sort(Sort.Direction.ASC, "totalPrice")
         );
-        return mongo.aggregate(agg, "products", Double.class).getMappedResults();
+        return mongo.aggregate(agg, "products", PriceByManufacturer.class).getMappedResults();
     }
 }

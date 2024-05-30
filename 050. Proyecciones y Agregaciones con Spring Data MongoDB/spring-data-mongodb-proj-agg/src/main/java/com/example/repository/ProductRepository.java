@@ -23,7 +23,8 @@ public interface ProductRepository extends MongoRepository<Product, String> {
                     active: true,
                     category: ?0,
                     price: {$gte: ?1}
-            } }
+                }
+            }
             """,
             "{ $sort: { title: -1 } }"
     })
