@@ -11,10 +11,9 @@ public class App {
         ApplicationContext ctx = SpringApplication.run(App.class, args);
         var service = ctx.getBean(MailService.class);
 
-        service.sendEmailFromTemplate("user1@example.com", "mail/hello", "Asunto 1");
-        service.sendEmailFromTemplate("user2@example.com", "mail/bye", "Asunto 2");
-        service.sendEmail("user2@example.com", "Asunto 3", "Contenido hola mundo", false, false);
-
+        service.sendEmailFromTemplate("gabriel210814@gmail.com", "mail/hello", "subject 1");
+        service.sendEmailFromTemplate("gabriel210814@gmail.com", "mail/bye", "subject 2");
+        service.sendEmail("gabriel210814@gmail.com", "subject 3", "Hello world content", false, false);
 
     }
 

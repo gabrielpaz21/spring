@@ -6,34 +6,34 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class MailService {
 
     private static final Logger log = LoggerFactory.getLogger(MailService.class);
-    private SpringTemplateEngine engine;
-    private JavaMailSender mailSender;
+    private final SpringTemplateEngine engine;
+    private final JavaMailSender mailSender;
 
-
-    public MailService(SpringTemplateEngine engine, JavaMailSender mailSender) {
+    public MailService(SpringTemplateEngine engine,
+                       JavaMailSender mailSender) {
         this.engine = engine;
         this.mailSender = mailSender;
     }
 
-    // renderizar plantilla html
+    // render html template
     public void sendEmailFromTemplate(String email, String templateName, String subject){
         Context context = new Context();
-        context.setVariable("message1", "Hola mundo");
-        context.setVariable("message2", "Adios mundo");
+        context.setVariable("message1", "Hello World");
+        context.setVariable("message2", "Goodbye world");
         String content = engine.process(templateName, context);
         sendEmail(email, subject, content, false, true);
     }
 
-    // enviar el email
+    // send the email
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
         log.info("Sending email to: {} with subject {}", to, subject);
 
