@@ -14,7 +14,7 @@ import static com.example.model.CustomerView.*;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private List<Customer> customers;
+    private final List<Customer> customers;
 
     public CustomerController() {
         this.customers = List.of(
@@ -25,8 +25,8 @@ public class CustomerController {
     }
 
     @GetMapping
-    @JsonView(CustomerList.class)
-//    @JsonView(CustomerFull.class)
+//    @JsonView(CustomerList.class)
+    @JsonView(CustomerFull.class)
     public List<Customer> findAll(){
         return customers;
     }
