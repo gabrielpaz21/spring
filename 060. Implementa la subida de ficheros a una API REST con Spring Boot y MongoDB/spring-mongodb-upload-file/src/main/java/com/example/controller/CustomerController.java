@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.model.Customer;
 import com.example.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,11 @@ import java.util.Base64;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    @Autowired
-    private CustomerService service;
+    private final CustomerService service;
+
+    public CustomerController(CustomerService service) {
+        this.service = service;
+    }
 
     // http://localhost:8080/customers/5f1f1f1f1f1f1f1f1f1f1f1f
     @GetMapping("/{id}")
@@ -38,7 +40,7 @@ public class CustomerController {
 
         var customer = new Customer(null, email, null);
         String id = service.save(customer, avatar);
-        return "redirect:/customers/" + id; // redirect hacia findById
+        return "redirect:/customers/" + id; // redirect to findById
     }
 
 
