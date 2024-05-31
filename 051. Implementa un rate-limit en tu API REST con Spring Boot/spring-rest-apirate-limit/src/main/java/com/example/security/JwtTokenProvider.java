@@ -14,13 +14,12 @@ import org.springframework.util.StringUtils;
 import java.util.Date;
 
 /*
-Se encarga de generar tokens JWT cuando un usuario inicia sesión satisfactoriamente
+Responsible for generating JWT tokens when a user successfully logs in
  */
 @Component
 public class JwtTokenProvider {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
-
 
     @Value("${app.security.jwt.secret}")
     private String jwtSecret;
@@ -32,11 +31,13 @@ public class JwtTokenProvider {
         UserEntity user = (UserEntity) authentication.getPrincipal();
 
         return Jwts.builder()
-                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()), SignatureAlgorithm.HS512)
-                .setHeaderParam("typ", "JWT")
-                .setSubject(Long.toString(user.getId()))
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + (jwtDurationSeconds * 1000)))
+                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()), Jwts.SIG.HS512)
+                .header()
+                    .add("typ", "JWT")
+                .and()
+                .subject(Long.toString(user.getId()))
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + (jwtDurationSeconds * 1000)))
                 .claim("username", user.getUsername())
                 .claim("email", user.getEmail())
                 .compact();
@@ -48,29 +49,29 @@ public class JwtTokenProvider {
             return false;
 
         try {
-            JwtParser validator = Jwts.parserBuilder()
-                    .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
+            JwtParser validator = Jwts.parser()
+                    .verifyWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                     .build();
 
-            validator.parseClaimsJws(token);
+            validator.parseSignedClaims(token);
             return true;
         } catch (SignatureException e) {
             log.info("Error en la firma del token", e);
         } catch (MalformedJwtException | UnsupportedJwtException e) {
-            log.info("Token incorrecto", e);
+            log.info("Wrong token", e);
         } catch (ExpiredJwtException e) {
-            log.info("Token expirado", e);
+            log.info("Expired token", e);
         }
         return false;
 
     }
 
     public String getUsernameFromToken(String token) {
-        JwtParser parser = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
+        JwtParser parser = Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
                 .build();
 
-        Claims claims = parser.parseClaimsJws(token).getBody();
+        Claims claims = parser.parseSignedClaims(token).getPayload();
         return claims.get("username").toString();
     }
 }

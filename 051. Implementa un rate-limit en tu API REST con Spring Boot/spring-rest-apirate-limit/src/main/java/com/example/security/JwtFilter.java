@@ -1,5 +1,6 @@
 package com.example.security;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,30 +9,35 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /*
-Se encarga de sacar el token que llega en la cabecera Authorization
-Llama a JwtProvider para validarlo
+It is responsible for removing the token that arrives in the Authorization header
+Call JwtProvider to validate it
  */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
-    @Autowired
-    private JwtTokenExtractor tokenExtractor;
-    @Autowired
-    private UserDetailsService userService;
+    private final JwtTokenProvider tokenProvider;
+    private final JwtTokenExtractor tokenExtractor;
+    private final UserDetailsService userService;
+
+    public JwtFilter(JwtTokenProvider tokenProvider,
+                     JwtTokenExtractor tokenExtractor,
+                     UserDetailsService userService) {
+        this.tokenProvider = tokenProvider;
+        this.tokenExtractor = tokenExtractor;
+        this.userService = userService;
+    }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String token = this.tokenExtractor.extractToken(request);
 
@@ -49,6 +55,5 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
 
     }
-
 
 }

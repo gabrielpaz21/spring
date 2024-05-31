@@ -1,7 +1,7 @@
 package com.example.dto;
 
 /*
-DTO con la información necesaria para registrar un nuevo usuario en base de datos
+DTO with the information necessary to register a new user in the database
 {
     "username": "user1",
     "email": "user1@jwt.io",

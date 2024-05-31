@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.model.Product;
 import com.example.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +16,10 @@ public class ProductController {
 
 //    private final Bucket bucket;
 
-    @Autowired
-    private ProductRepository repo;
+    private final ProductRepository repo;
 
-    public ProductController() {
-
+    public ProductController(ProductRepository repo) {
+        this.repo = repo;
     }
 
     @GetMapping
@@ -31,9 +29,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> save(Product product){
-
-            return ResponseEntity.ok(repo.save(product));
-
+        return ResponseEntity.ok(repo.save(product));
     }
 
     @GetMapping("/premium")

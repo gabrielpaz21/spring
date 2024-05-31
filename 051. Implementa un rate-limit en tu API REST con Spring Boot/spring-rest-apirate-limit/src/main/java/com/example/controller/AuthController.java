@@ -6,7 +6,6 @@ import com.example.dto.UserRegister;
 import com.example.model.UserEntity;
 import com.example.security.JwtTokenProvider;
 import com.example.service.UserEntityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,14 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    @Autowired
-    private UserEntityService userService;
-    @Autowired
-    private AuthenticationManager authManager;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    private final UserEntityService userService;
+    private final AuthenticationManager authManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
-
+    public AuthController(UserEntityService userService, AuthenticationManager authManager, JwtTokenProvider jwtTokenProvider) {
+        this.userService = userService;
+        this.authManager = authManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     @PostMapping("/auth/register")
     public UserEntity save(@RequestBody UserRegister userDTO){
