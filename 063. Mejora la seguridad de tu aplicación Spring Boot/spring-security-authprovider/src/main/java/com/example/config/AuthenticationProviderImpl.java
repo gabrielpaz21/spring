@@ -10,9 +10,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 public class AuthenticationProviderImpl implements AuthenticationProvider {
 
@@ -39,8 +39,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 //        var authDetails = (WebAuthenticationDetails)authentication;
 //        String ip = authDetails.getRemoteAddress();
 
-        // Personalización y mejoras de la seguridad:
-        // Ejemplo: Comprobar la IP
+        // Customization and security improvements:
+        // Example: Check IP
         String ip = request.getRemoteAddr();
         if(!isValidIp(ip, user))
             throw new BadCredentialsException("");
@@ -52,11 +52,10 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     }
 
     /*
-    Si la ip del usuario no es la misma que la ip con la que se registró
-    entonces no puede acceder.
+    If the user's IP is not the same as the IP they registered with
+    then you can't access.
 
-    TODO : Si la ip es diferente, entonces se debe enviar un correo al usuario para
-    permitir esa ip solo si el usuario acepta
+    TODO : If the ip is different then a mail should be sent to the user to allow that ip only if the user accepts
      */
     private boolean isValidIp(String ip, UserDetails user) {
         System.out.println("checking ip: " + ip);

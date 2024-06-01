@@ -1,26 +1,27 @@
 package com.example.controller;
 
 import com.example.dto.RegisterDTO;
-import com.example.model.UserAuthority;
 import com.example.model.UserEntity;
 import com.example.repository.UserEntityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-
 public class UserController {
 
-    @Autowired
-    private UserEntityRepository repo;
-    @Autowired
-    private PasswordEncoder encoder;
+    private final UserEntityRepository repo;
+    private final PasswordEncoder encoder;
+
+    public UserController(UserEntityRepository repo,
+                          PasswordEncoder encoder) {
+        this.repo = repo;
+        this.encoder = encoder;
+    }
 
     @GetMapping("/hello")
     public String hello(){
@@ -43,12 +44,10 @@ public class UserController {
 
         UserEntity user = register.toUserEntity();
         user.setPassword(encoder.encode(user.getPassword()));
-        // Personalización de la seguridad por medio de comprobar la IP
+        // Customizing security by checking IP
         String ip = request.getRemoteAddr();
         user.getIps().add(ip);
         repo.save(user);
     }
-
-
 
 }
