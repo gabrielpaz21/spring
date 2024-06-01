@@ -5,21 +5,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
 public class InMemoryAccountRepository implements AccountRepository {
 
-    private static String ADMIN_SECRET = "6YFX5TVT76OHHNMS";
+    private static final String ADMIN_SECRET = "6YFX5TVT76OHHNMS";
 
-    private List<Account> accounts;
+    private final List<Account> accounts;
 
-    private PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     public InMemoryAccountRepository(PasswordEncoder encoder) {
         this.encoder = encoder;
-        accounts = new ArrayList<Account>();
+        accounts = new ArrayList<>();
         init();
     }
 
@@ -29,13 +28,13 @@ public class InMemoryAccountRepository implements AccountRepository {
         admin.setPassword(encoder.encode("admin"));
         admin.setAuth2FA(true);
         admin.setSecret(ADMIN_SECRET);
-        admin.setRoles(Arrays.asList("ROLE_USER"));
+        admin.setRoles(List.of("ROLE_USER"));
 
         Account user = new Account();
         user.setUsername("user");
         user.setPassword(encoder.encode("user"));
         user.setAuth2FA(false);
-        user.setRoles(Arrays.asList("ROLE_USER"));
+        user.setRoles(List.of("ROLE_USER"));
 
         accounts.add(admin);
         accounts.add(user);

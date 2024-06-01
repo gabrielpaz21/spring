@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.model.Account;
 import com.example.model.UserDetailsAdapter;
 import com.example.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,8 +13,11 @@ import org.springframework.stereotype.Component;
 @Primary
 public class UserDetailsServiceAdapter implements UserDetailsService {
 
-    @Autowired
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
+
+    public UserDetailsServiceAdapter(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

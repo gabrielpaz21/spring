@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.4</version>
+        <version>3.3.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -14,7 +14,7 @@
     <name>spring-security-2fa</name>
     <description>spring-security-2fa</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,6 +32,7 @@
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>3.1.2.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -55,8 +56,6 @@
             <artifactId>aerogear-otp-java</artifactId>
             <version>1.0.0</version>
         </dependency>
-
-
     </dependencies>
 
     <build>

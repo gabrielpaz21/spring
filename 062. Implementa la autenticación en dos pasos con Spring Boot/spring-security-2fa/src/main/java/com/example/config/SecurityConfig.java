@@ -12,8 +12,11 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Autowired
     public void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
@@ -22,14 +25,17 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize ->
-                authorize
-                    .antMatchers("/static/**").permitAll()
-                    .antMatchers("/code").hasRole("PRE_AUTH_USER")
-                    .antMatchers("/home").hasRole("USER")
-                    .anyRequest().authenticated()
-        ).formLogin().loginPage("/login").permitAll()
-        .successHandler(authenticationSuccessHandler());
+        http.authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers("/static/**").permitAll()
+                                .requestMatchers("/code").hasRole("PRE_AUTH_USER")
+                                .requestMatchers("/home").hasRole("USER")
+                                .anyRequest().authenticated()
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .permitAll()
+                        .successHandler(authenticationSuccessHandler())
+                );
 
         return http.build();
     }
