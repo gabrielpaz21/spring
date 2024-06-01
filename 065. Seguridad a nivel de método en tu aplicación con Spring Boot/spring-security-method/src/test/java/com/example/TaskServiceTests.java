@@ -1,7 +1,6 @@
 package com.example;
 
 import com.example.model.Task;
-import com.example.service.EmployeeService;
 import com.example.service.TaskService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +22,9 @@ class TaskServiceTests {
 
     @Test
     void findByUsernameException() {
-        assertThrows(AuthenticationException.class, () -> {
-            service.findByUsername("user1");
-        });
+        assertThrows(AuthenticationException.class, () -> service.findByUsername("user1"));
     }
+
     @Test
     @WithMockUser(username = "user1")
     void findByUsernameOK() {
@@ -36,9 +34,15 @@ class TaskServiceTests {
 
     @Test
     @WithMockUser(username = "user1")
-    void findFirstByUserName() {
-        assertThrows(AccessDeniedException.class, () -> {
-            service.findFirstByUserName("user2");
-        });
+    void findFirstByUserNameOK() {
+        Task task = service.findFirstByUserName("user1");
+        assertEquals("Task 1", task.name());
     }
+
+    @Test
+    @WithMockUser(username = "user1")
+    void findFirstByUserName() {
+        assertThrows(AccessDeniedException.class, () -> service.findFirstByUserName("user2"));
+    }
+
 }

@@ -19,9 +19,7 @@ class EmployeeServiceTests {
 
     @Test
     void method1AuthenticationException() {
-        assertThrows(AuthenticationException.class, () -> {
-            service.method1();
-        });
+        assertThrows(AuthenticationException.class, service::method1);
     }
 
     @Test
@@ -41,10 +39,7 @@ class EmployeeServiceTests {
     @Test
     @WithMockUser(authorities = "read")
     void method3AccessDeniedException() {
-        String result = service.method3();
-        assertThrows(AccessDeniedException.class, () -> {
-            service.method3();
-        });
+        assertThrows(AccessDeniedException.class, () -> service.method3());
     }
 
     @Test
@@ -53,7 +48,5 @@ class EmployeeServiceTests {
         String result = service.method3();
         assertEquals("method3", result);
     }
-
-
 
 }

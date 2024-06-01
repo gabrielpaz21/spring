@@ -1,8 +1,6 @@
 package com.example;
 
-import com.example.model.Task;
 import com.example.model.Vehicle;
-import com.example.service.TaskService;
 import com.example.service.VehicleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +23,9 @@ class VehicleServiceTest {
 
     @Test
     void method1() {
-        assertThrows(AuthenticationException.class, () -> {
-            service.method1();
-        });
+        assertThrows(AuthenticationException.class, () -> service.method1());
     }
+
     @Test
     @WithMockUser(roles = "ADMIN")
     void adminRole() {
@@ -40,23 +37,19 @@ class VehicleServiceTest {
     @Test
     @WithMockUser(roles = "USER")
     void userRole() {
-        assertThrows(AccessDeniedException.class, () -> {
-            service.method1();
-        });
-        assertThrows(AccessDeniedException.class, () -> {
-            service.method2();
-        });
+        assertThrows(AccessDeniedException.class, () -> service.method1());
+        assertThrows(AccessDeniedException.class, () -> service.method2());
         assertEquals("method3", service.method3());
     }
 
     @Test
-    @WithMockUser(username = "user2")
+    @WithMockUser(username = "user1")
     void method4() {
         List<Vehicle> vehicles = service.method4(new ArrayList<>(List.of(
                 new Vehicle(1L, "ford", "user1"),
                 new Vehicle(2L, "honda", "user2"),
                 new Vehicle(3L, "honda", "user1")
         )));
-        assertEquals(1, vehicles.size());
+        assertEquals(2, vehicles.size());
     }
 }

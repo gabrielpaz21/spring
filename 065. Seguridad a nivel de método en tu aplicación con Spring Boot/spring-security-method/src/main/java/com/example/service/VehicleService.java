@@ -5,13 +5,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.security.RolesAllowed;
+import jakarta.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Service
 public class VehicleService {
 
-    @RolesAllowed("ROLE_ADMIN")
+    @RolesAllowed("ADMIN")
     public String method1(){
         return "method1";
     }
@@ -28,7 +28,7 @@ public class VehicleService {
 
     @PreFilter("filterObject.owner == authentication.principal.username")
     public List<Vehicle> method4(List<Vehicle> vehicles){
-        // operaciones...
+        // operations...
         return vehicles;
     }
 
