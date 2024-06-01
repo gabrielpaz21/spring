@@ -1,7 +1,6 @@
 package com.example.config;
 
 import com.example.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,8 +17,11 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -42,19 +44,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/users").authenticated()
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/users").authenticated()
                 .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("username")
-                    .defaultSuccessUrl("/users")
-                    .permitAll()
-                .and()
-                    .rememberMe()
-                    .tokenRepository(persistentTokenRepository())
-        ;
+        ).formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .usernameParameter("username")
+                        .defaultSuccessUrl("/users")
+                        .permitAll()
+        ).rememberMe(rememberMeCustomizer -> rememberMeCustomizer
+                .tokenRepository(persistentTokenRepository())
+        );
 
         return http.build();
     }
