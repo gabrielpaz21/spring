@@ -3,7 +3,6 @@ package com.example.captcha;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,8 +11,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class CaptchaAspect {
 
-    @Autowired
-    private CaptchaValidator validator;
+    private final CaptchaValidator validator;
+
+    public CaptchaAspect(CaptchaValidator validator) {
+        this.validator = validator;
+    }
 
     @Around("@annotation(RequiresCaptcha)")
     public Object validateCaptcha(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -27,7 +29,7 @@ public class CaptchaAspect {
         if(!isValid){
             throw new RuntimeException("Invalid captcha");
         }
-        return joinPoint.proceed(); // permite el paso hacia el método del controlador
+        return joinPoint.proceed(); // allows the step to the controller method
     }
 
 }
