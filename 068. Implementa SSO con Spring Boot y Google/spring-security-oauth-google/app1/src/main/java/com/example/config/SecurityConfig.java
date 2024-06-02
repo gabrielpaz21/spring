@@ -2,6 +2,7 @@ package com.example.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -10,13 +11,15 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Login();
+
+                http.authorizeHttpRequests(authorize -> authorize
+                                .anyRequest().authenticated()
+                )
+                .oauth2Login(Customizer.withDefaults());
+
         return http.build();
     }
 
-    // si nos queremos comunicar con un resource server utilizando WebClient
-    // se puede configurar WebClient con seguridad OAuth2
+    // if we want to communicate with a resource server using WebClient,
+    // you can configure WebClient with OAuth2 security
 }
