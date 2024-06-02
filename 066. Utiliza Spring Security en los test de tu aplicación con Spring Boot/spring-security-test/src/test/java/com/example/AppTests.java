@@ -54,9 +54,20 @@ class AppTests {
                 .andExpect(content().string("method1"));
     }
 
+    // the user needs to exist
+    @Test
+    @WithUserDetails("user1")
+    void test5() throws Exception {
+        mvc.perform(get("/api/method1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("method1"));
+    }
+
+    // the user needs to exist
+    // change testingConfig to put a @Component
     @Test
     @WithUserDetails("usertest")
-    void test5() throws Exception {
+    void test55() throws Exception {
         mvc.perform(get("/api/method1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("method1"));
@@ -64,20 +75,22 @@ class AppTests {
 
     @Test
     void test6() throws Exception {
-        // contraseña incorrecta
+        // Incorrect password
         mvc.perform(get("/api/method1").with(httpBasic("user1", "wrongpassword")))
                 .andExpect(status().isUnauthorized());
     }
+
     @Test
     void test7() throws Exception {
-        // contraseña correcta
+        // correct password
         mvc.perform(get("/api/method1").with(httpBasic("user1", "password")))
                 .andExpect(status().isOk())
                 .andExpect(content().string("method1"));
     }
+
     @Test
     void test8() throws Exception {
-        // contraseña correcta
+        // correct password
         mvc.perform(formLogin().user("user1").password("password"))
                 .andExpect(authenticated());
     }

@@ -8,13 +8,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-// Descomentar para cargar configuración de test que reemplace la configuración de producción
+// Uncomment to load test configuration that replaces production configuration
 //@Configuration
 public class TestConfig {
 
     @Primary
     @Bean("userDetailsServiceTest")
-    public UserDetailsService uesrDetailsService(PasswordEncoder passwordEncoder){
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder){
         var userDetailsService = new InMemoryUserDetailsManager();
         var user1 = User.builder()
                 .username("usertest")
