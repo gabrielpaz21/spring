@@ -1,6 +1,6 @@
 package com.example.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Table(name = "customers")
 @Entity
