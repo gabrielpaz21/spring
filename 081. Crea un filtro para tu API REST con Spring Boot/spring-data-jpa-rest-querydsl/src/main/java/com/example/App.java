@@ -11,8 +11,6 @@ import org.springframework.context.ApplicationContext;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.example.model.QAuthor.author;
-
 @SpringBootApplication
 public class App {
 
@@ -31,7 +29,6 @@ public class App {
         var book2 = new Book(null, "123", "book1", author1);
         var book3 = new Book(null, "123", "book1", author1);
         bookRepo.saveAll(List.of(book1, book2, book3));
-
 
     }
 

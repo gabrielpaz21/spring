@@ -34,7 +34,7 @@ public interface AuthorRepository extends
 
             var birthDates = new ArrayList<>(values);
             if (birthDates.size() == 1) {
-                return Optional.of(path.goe(birthDates.get(0)));
+                return Optional.of(path.goe(birthDates.getFirst()));
             } else {
                 return Optional.of(path.between(birthDates.get(0), birthDates.get(1)));
             }

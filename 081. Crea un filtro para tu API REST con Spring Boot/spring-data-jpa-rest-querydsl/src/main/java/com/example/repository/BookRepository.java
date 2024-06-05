@@ -18,9 +18,6 @@ public interface BookRepository extends
     @Override
     default void customize(QuerydslBindings bindings, QBook root){
         System.out.println("Customizing querydsl bindings of BOOK");
-        bindings.bind(root.title).first((stringPath, str) -> stringPath.containsIgnoreCase(str));
-
-
-
+        bindings.bind(root.title).first(StringExpression::containsIgnoreCase);
     }
 }

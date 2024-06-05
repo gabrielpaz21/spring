@@ -26,11 +26,11 @@ public class DataSource2Config {
 
     @Bean(name = "dataSource2")
     @Primary
-    public DataSource datasource2(){
+    public DataSource datasource2() {
         return DataSourceBuilder.create().driverClassName("com.mysql.cj.jdbc.Driver")
                 .url("jdbc:mysql://localhost:3306/spring_data_jpa_mysql?createDatabaseIfNotExist=true")
                 .username("root")
-                .password("admin")
+                .password("")
                 .build();
     }
 
