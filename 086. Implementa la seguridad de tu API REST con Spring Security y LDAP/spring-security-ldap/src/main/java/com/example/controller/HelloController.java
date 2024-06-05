@@ -11,12 +11,12 @@ public class HelloController {
 
     @GetMapping("/")
     public String hello(Authentication authentication){
-        return "Hello, " + authentication.getName();
+        return STR."Hello, \{authentication.getName()}";
     }
 
     @GetMapping("/user")
     public String hello(@AuthenticationPrincipal Person person){
-        return "Hello, " + person.getGivenName();
+        return STR."Hello, \{person.getGivenName()}";
     }
 
 }

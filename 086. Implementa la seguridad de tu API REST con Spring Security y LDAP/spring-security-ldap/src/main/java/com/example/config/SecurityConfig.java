@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ldap.core.support.BaseLdapPathContextSource;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
 import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
@@ -15,20 +16,21 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests(authorizeRequests ->
-                authorizeRequests.anyRequest().authenticated()
-        ).formLogin().and().httpBasic();
-        return http.build();
+        return http.authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests.anyRequest().authenticated()
+                ).formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
+                .build();
     }
 
-    // CONFIGURACIÓN LDAP
+    // configuration LDAP
 
     @Bean
     public EmbeddedLdapServerContextSourceFactoryBean contextSource() {
 
         var factoryBean = EmbeddedLdapServerContextSourceFactoryBean.fromEmbeddedLdapServer();
-//        factoryBean.setPort(0); // aleatoriamente
-        factoryBean.setPort(33389); // por defecto
+//        factoryBean.setPort(0); // randomly
+        factoryBean.setPort(33389); // default
         return factoryBean;
     }
 
@@ -40,8 +42,5 @@ public class SecurityConfig {
         factory.setUserDetailsContextMapper(new PersonContextMapper());
         return factory.createAuthenticationManager();
     }
-
-
-
 
 }
