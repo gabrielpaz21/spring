@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
@@ -15,7 +16,6 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @KeycloakConfiguration
 public class SecurityConfig extends
         KeycloakWebSecurityConfigurerAdapter {
-
 
     @Bean
     @Override
@@ -37,6 +37,17 @@ public class SecurityConfig extends
         super.configure(http);
         http.authorizeRequests().anyRequest().authenticated();
     }
+
+    @Override
+    public void init(WebSecurity builder) throws Exception {
+
+    }
+
+    @Override
+    public void configure(WebSecurity builder) throws Exception {
+
+    }
+
     // SecurityFilterChain
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
