@@ -9,6 +9,8 @@ import org.springframework.security.web.authentication.session.NullAuthenticated
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
@@ -18,11 +20,13 @@ public class SecurityConfig {
         return new RegisterSessionAuthenticationStrategy(
                 new SessionRegistryImpl());
     }
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().oauth2Login();
+        http.authorizeHttpRequests(authorize ->
+                authorize.anyRequest().authenticated()
+        ).oauth2Login(withDefaults());
         return http.build();
     }
+
 }
