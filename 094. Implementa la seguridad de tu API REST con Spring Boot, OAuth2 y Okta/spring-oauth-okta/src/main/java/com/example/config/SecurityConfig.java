@@ -5,17 +5,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-                .antMatchers("/api/hello").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2ResourceServer()
-                .jwt();
+        http.authorizeHttpRequests(authorize ->
+                                authorize.requestMatchers("/api/hello").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth2ResourceServerCustomizer -> oauth2ResourceServerCustomizer.jwt(withDefaults()));
 
         return http.build();
     }
