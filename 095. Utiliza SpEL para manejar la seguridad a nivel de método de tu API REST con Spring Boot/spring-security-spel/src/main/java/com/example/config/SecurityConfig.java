@@ -1,12 +1,10 @@
 package com.example.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,24 +13,20 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends GlobalMethodSecurityConfiguration {
+@EnableMethodSecurity()
+public class SecurityConfig {
 
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
     }
 
-//    @Autowired
-//    private TaskPermEvaluator taskEvaluator;
-//
-//
-//    @Override
-//    protected MethodSecurityExpressionHandler createExpressionHandler() {
-//        var handler = new DefaultMethodSecurityExpressionHandler();
-//        handler.setPermissionEvaluator(taskEvaluator);
-//        return handler;
-//    }
+    @Bean
+    static  MethodSecurityExpressionHandler createExpressionHandler(TaskPermEvaluator taskEvaluator) {
+        var handler = new DefaultMethodSecurityExpressionHandler();
+        handler.setPermissionEvaluator(taskEvaluator);
+        return handler;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {

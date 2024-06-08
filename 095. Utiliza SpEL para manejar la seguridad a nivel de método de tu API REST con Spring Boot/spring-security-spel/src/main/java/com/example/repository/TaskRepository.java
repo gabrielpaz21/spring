@@ -14,7 +14,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @PostFilter("filterObject.owner == authentication.principal.username")
     List<Task> findByTitleContains(String title);
 
-
     @Query("""
         select t from Task t
         where t.title LIKE %:title% and

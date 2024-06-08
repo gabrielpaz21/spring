@@ -2,7 +2,6 @@ package com.example.config;
 
 import com.example.model.Task;
 import com.example.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -13,8 +12,11 @@ import java.util.Optional;
 @Component
 public class TaskPermEvaluator implements PermissionEvaluator {
 
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+
+    public TaskPermEvaluator(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
 
     @Override
     public boolean hasPermission(Authentication authentication,
@@ -48,4 +50,5 @@ public class TaskPermEvaluator implements PermissionEvaluator {
 
         return admin || task.getOwner().equals(authentication.getName());
     }
+
 }
