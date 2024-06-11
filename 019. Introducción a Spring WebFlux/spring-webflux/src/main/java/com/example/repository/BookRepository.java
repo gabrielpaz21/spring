@@ -24,20 +24,20 @@ public class BookRepository {
         database.put(7L, new Book(7L, "book7", "author7"));
     }
 
-    public Mono<Book> findById(Long id){
+    public Mono<Book> findById(Long id) {
         return Mono.just(database.get(id));
     }
 
-    public Flux<Book> findAll(){
+    public Flux<Book> findAll() {
         return Flux.fromIterable(database.values());
     }
 
-    public Mono<Boolean> existById(Long id){
+    public Mono<Boolean> existById(Long id) {
         return database.containsKey(id) ? Mono.just(true) : Mono.just(false);
     }
 
-    public Mono<Book> save(Book book){
-        if(book.getId() == null){
+    public Mono<Book> save(Book book) {
+        if (book.getId() == null) {
             Long id = database.values().stream().mapToLong(Book::getId).max().orElse(0L) + 1;
             book.setId(id);
         }
@@ -45,12 +45,12 @@ public class BookRepository {
         return Mono.just(book);
     }
 
-    public Mono<Void> deleteById(Long id){
+    public Mono<Void> deleteById(Long id) {
         database.remove(id);
         return Mono.empty();
     }
 
-    public Mono<Void> deleteAll(){
+    public Mono<Void> deleteAll() {
         database.clear();
         return Mono.empty();
     }
