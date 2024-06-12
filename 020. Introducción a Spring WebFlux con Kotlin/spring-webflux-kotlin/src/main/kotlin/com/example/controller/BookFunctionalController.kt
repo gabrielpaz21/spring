@@ -16,7 +16,7 @@ class BookFunctionalController {
             GET("/{id}", handler::findById)
             POST("", handler::create)
             PUT("", handler::update)
-            DELETE("/{id}", handler::findById)
+            DELETE("/{id}", handler::deleteById)
             DELETE("", handler::deleteAll)
         }
     }

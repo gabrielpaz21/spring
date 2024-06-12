@@ -24,22 +24,22 @@ class BookRepository {
 
     fun findAll(): Flux<Book> = Flux.fromIterable(database.values)
 
-    fun existById(id: Long): Mono<Boolean>{
+    fun existById(id: Long): Mono<Boolean> {
         return if (database.containsKey(id)) Mono.just(true) else Mono.just(false)
     }
 
-    fun save(book: Book): Mono<Book>{
+    fun save(book: Book): Mono<Book> {
         book.id = book.id ?: (database.values.mapNotNull { it.id }.maxOf { it.or(0L) } + 1)
         database[book.id!!] = book
         return Mono.just(book)
     }
 
-    fun deleteById(id: Long): Mono<Void>{
+    fun deleteById(id: Long): Mono<Void> {
         database.remove(id)
         return Mono.empty()
     }
 
-    fun deleteAll(): Mono<Void>{
+    fun deleteAll(): Mono<Void> {
         database.clear()
         return Mono.empty()
     }

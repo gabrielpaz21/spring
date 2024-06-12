@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
-import org.springframework.web.reactive.function.server.bodyToMono
 import reactor.core.publisher.Mono
 import java.net.URI
 
@@ -17,7 +16,6 @@ class BookHandler(@Autowired val bookService: BookService) {
         ServerResponse.ok()
             .body(bookService.findAll(), Book::class.java)
             .switchIfEmpty(ServerResponse.notFound().build())
-
 
     fun findById(request: ServerRequest) =
         bookService.findById(request.pathVariable("id").toLong())
@@ -42,4 +40,5 @@ class BookHandler(@Autowired val bookService: BookService) {
 
     fun deleteAll(request: ServerRequest) =
         ServerResponse.noContent().build(bookService.deleteAll())
+
 }
