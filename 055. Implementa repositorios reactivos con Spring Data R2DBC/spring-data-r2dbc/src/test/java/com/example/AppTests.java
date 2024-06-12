@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
-import org.springframework.data.r2dbc.core.R2dbcEntityOperations;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.util.StreamUtils;
 import reactor.core.publisher.Mono;
@@ -19,9 +18,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /*
-2 enfoques para trabajar con base de datos a nivel reactivo:
+2 approaches to working with a database at a reactive level:
 
-1. repositorios
+1. repositories
 2. R2dbcEntityOperations
 
  */
@@ -30,6 +29,7 @@ class AppTests {
 
     @Value("classpath:schema.sql")
     private Resource schema;
+
     @Value("classpath:data.sql")
     private Resource data;
 
@@ -110,7 +110,8 @@ class AppTests {
 
         service.update(999L, Mono.just(vehicle))
                 .as(StepVerifier::create)
-                .expectNextCount(0).verifyComplete();
+                .expectNextCount(0)
+                .verifyComplete();
 
     }
 
