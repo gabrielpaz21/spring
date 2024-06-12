@@ -22,7 +22,6 @@ class AppTests {
     @Autowired
     private VehicleService service;
 
-
     @BeforeEach
     void setUp() {
         var veh1 = new Vehicle(null, "veh1", 1.2, 2010);
