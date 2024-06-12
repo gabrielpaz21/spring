@@ -2,7 +2,6 @@ package com.example.service;
 
 import com.example.model.Vehicle;
 import com.example.repository.VehicleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -10,8 +9,11 @@ import reactor.core.publisher.Mono;
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
-    @Autowired
-    private VehicleRepository repo;
+    private final VehicleRepository repo;
+
+    public VehicleServiceImpl(VehicleRepository repo) {
+        this.repo = repo;
+    }
 
     @Override
     public Flux<Vehicle> findAll() {
@@ -45,4 +47,5 @@ public class VehicleServiceImpl implements VehicleService {
     public Mono<Void> delete(Vehicle vehicle) {
         return this.repo.delete(vehicle);
     }
+
 }

@@ -2,7 +2,6 @@ package com.example;
 
 import com.example.model.Vehicle;
 import com.example.repository.VehicleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,8 +21,11 @@ public class App {
     @Value("classpath:schema.sql")
     private Resource schema;
 
-    @Autowired
-    private R2dbcEntityTemplate template;
+    private final R2dbcEntityTemplate template;
+
+    public App(R2dbcEntityTemplate template) {
+        this.template = template;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

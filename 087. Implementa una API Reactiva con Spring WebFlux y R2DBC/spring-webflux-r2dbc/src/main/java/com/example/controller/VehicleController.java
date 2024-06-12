@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.model.Vehicle;
 import com.example.service.VehicleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -12,8 +11,11 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/vehicles")
 public class VehicleController {
 
-    @Autowired
-    private VehicleService service;
+    private final VehicleService service;
+
+    public VehicleController(VehicleService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public Flux<Vehicle> findAll() {
@@ -59,6 +61,5 @@ public class VehicleController {
                 )
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-
 
 }

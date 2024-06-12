@@ -8,4 +8,4 @@ services:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=spring_r2dbc
     ports:
-      - 5432:5432
+      - "5432:5432"
