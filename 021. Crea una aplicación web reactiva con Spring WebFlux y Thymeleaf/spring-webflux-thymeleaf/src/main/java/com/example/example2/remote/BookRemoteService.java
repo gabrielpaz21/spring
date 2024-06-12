@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /*
-Suponemos que esta clase es un servicio de otra aplicación
+We assume that this class is a service of another application
  */
 @RestController
 public class BookRemoteService {

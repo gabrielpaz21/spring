@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 @Controller
 public class BookController {
@@ -19,9 +19,9 @@ public class BookController {
         RestTemplate client = new RestTemplate();
         List<Book> books = new ArrayList<>();
 
-        books.addAll(List.of(client.getForObject("http://localhost:8080/remote/books", Book[].class)));
-        books.addAll(List.of(client.getForObject("http://localhost:8080/remote/books", Book[].class)));
-        books.addAll(List.of(client.getForObject("http://localhost:8080/remote/books", Book[].class)));
+        books.addAll(List.of(Objects.requireNonNull(client.getForObject("http://localhost:8080/remote/books", Book[].class))));
+        books.addAll(List.of(Objects.requireNonNull(client.getForObject("http://localhost:8080/remote/books", Book[].class))));
+        books.addAll(List.of(Objects.requireNonNull(client.getForObject("http://localhost:8080/remote/books", Book[].class))));
 
         model.addAttribute("books", books);
         return "book-list";

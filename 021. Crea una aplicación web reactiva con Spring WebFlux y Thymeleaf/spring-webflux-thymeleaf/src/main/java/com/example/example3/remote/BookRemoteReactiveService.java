@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 
 /*
-Suponemos que esta clase es un servicio de otra aplicación
+We assume that this class is a service of another application
  */
 @RestController
 public class BookRemoteReactiveService {
