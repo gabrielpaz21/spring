@@ -10,7 +10,7 @@ import java.util.List;
 public class BookController {
 
     @GetMapping
-    public List<Book> findAll(){
+    public List<Book> findAll() {
         System.out.println("findAll");
         return List.of(
                 new Book(1L, "book1"),
@@ -20,7 +20,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public Book findById(@PathVariable Long id){
+    public Book findById(@PathVariable Long id) {
         System.out.println("findById " + id);
         return new Book(id, "book example");
     }
