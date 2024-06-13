@@ -10,7 +10,6 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:8080/"})
 public class EmployeeController {
 
-
     @GetMapping("/api/employees")
     public List<Employee> findAll(){
         return List.of(
@@ -18,6 +17,6 @@ public class EmployeeController {
                 new Employee(2L, "emp2", "role2"),
                 new Employee(3L, "emp3", "role3")
         );
-
     }
+
 }
