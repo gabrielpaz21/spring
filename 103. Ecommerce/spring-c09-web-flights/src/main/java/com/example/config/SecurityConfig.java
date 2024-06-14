@@ -2,7 +2,7 @@ package com.example.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,24 +18,21 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests()
-//                .requestMatchers(HttpMethod.GET, "/flights").permitAll()
-//                .requestMatchers(HttpMethod.GET, "/tickets").permitAll()
-//                .requestMatchers("/user/**").permitAll()
-                .requestMatchers("/css/**").permitAll()
-                .requestMatchers("/js/**").permitAll()
-                .requestMatchers("/img/**").permitAll()
-                .requestMatchers("/webjars/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
+                http.authorizeHttpRequests(requests ->
+                        requests.requestMatchers("/css/**").permitAll()
+                                .requestMatchers("/js/**").permitAll()
+                                .requestMatchers("/img/**").permitAll()
+                                .requestMatchers("/webjars/**").permitAll()
+                                //.requestMatchers(HttpMethod.GET, "/flights").permitAll()
+                                //.requestMatchers(HttpMethod.GET, "/tickets").permitAll()
+                                // .requestMatchers("/user/**").permitAll()
+                                .anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
                 //.loginPage()
                 // .loginProcessingUrl()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/flights");
+                .logout(logoutCustomizer -> logoutCustomizer.logoutSuccessUrl("/flights"));
 
         return http.build();
     }
+
 }

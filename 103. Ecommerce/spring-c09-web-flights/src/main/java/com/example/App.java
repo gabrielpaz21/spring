@@ -58,14 +58,14 @@ public class App {
         passengerRepo.saveAll(List.of(psg1, psg2));
 
         var ticketRepo = context.getBean(TicketRepository.class);
-        Ticket t1 = new Ticket(null, "A1", 58.8, false, "imagen1.jpg", f1, psg1);
-        Ticket t2 = new Ticket(null, "A2", 58.8, false, "imagen1.jpg", f2, psg1);
-        Ticket t3 = new Ticket(null, "A3", 58.8, false, "imagen1.jpg", f3, psg1);
-        Ticket t4 = new Ticket(null, "B1", 58.8, false, "imagen2.jpg", f1, psg2);
-        Ticket t5 = new Ticket(null, "C1", 150.0, false, "imagen2.jpg", f1, null);
-        Ticket t6 = new Ticket(null, "D1", 150.0, false, "imagen2.jpg", f2, null);
-        Ticket t7 = new Ticket(null, "E1", 150.0, false, "imagen3.jpg", f3, null);
-        Ticket t8 = new Ticket(null, "F1", 150.0, false, "imagen3.jpg", f1, null);
+        Ticket t1 = new Ticket(null, "A1", 58.8, false, "image1.jpg", f1, psg1);
+        Ticket t2 = new Ticket(null, "A2", 58.8, false, "image1.jpg", f2, psg1);
+        Ticket t3 = new Ticket(null, "A3", 58.8, false, "image1.jpg", f3, psg1);
+        Ticket t4 = new Ticket(null, "B1", 58.8, false, "image2.jpg", f1, psg2);
+        Ticket t5 = new Ticket(null, "C1", 150.0, false, "image2.jpg", f1, null);
+        Ticket t6 = new Ticket(null, "D1", 150.0, false, "image2.jpg", f2, null);
+        Ticket t7 = new Ticket(null, "E1", 150.0, false, "image3.jpg", f3, null);
+        Ticket t8 = new Ticket(null, "F1", 150.0, false, "image3.jpg", f1, null);
         ticketRepo.saveAll(List.of(t1, t2, t3, t4, t5, t6, t7, t8));
     }
 

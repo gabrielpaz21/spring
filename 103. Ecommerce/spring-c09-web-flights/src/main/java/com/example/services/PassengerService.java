@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface PassengerService {
     List<Passenger> findAll();
-    Passenger save(Passenger passenger);
+    void save(Passenger passenger);
 }

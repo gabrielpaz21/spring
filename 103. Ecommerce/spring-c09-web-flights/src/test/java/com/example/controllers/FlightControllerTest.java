@@ -38,21 +38,22 @@ class FlightControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("Recuperar todos los vuelos")
+    @DisplayName("Recover all flights")
     void findAll() throws Exception {
-        // configurar mock
+
+        // configure mock
         List<Flight> flights = new ArrayList<>(List.of(
                 new Flight(),
                 new Flight()
         ));
         when(flightService.findAll()).thenReturn(flights);
 
-        // ejecutar método a testear
+        // execute method to test
         mvc.perform(get("/flights")).andExpectAll(
                 status().isOk(),
                 content().contentType("text/html;charset=UTF-8"),
                 model().attributeExists("flights"),
-//                model().attribute("mensaje1", "Hola mundo"),
+//                model().attribute("message1", "Hello World"),
                 model().attribute("flights", hasSize(2)),
                 view().name("flight/flight-list")
         );
@@ -61,7 +62,7 @@ class FlightControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("Recuperar vuelo por id")
+    @DisplayName("Retrieve flight by id")
     void findById() throws Exception {
 
         Flight flight = new Flight(1L);
@@ -83,7 +84,7 @@ class FlightControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("Recuperar vuelo por id que no existe")
+    @DisplayName("Recover flight by id that does not exist")
     void findByIdNotFound() throws Exception {
 
         when(flightService.findById(1L)).thenReturn(Optional.empty());
@@ -99,10 +100,9 @@ class FlightControllerTest {
         verify(flightService).findById(1L);
     }
 
-
     @Test
     @WithMockUser
-    @DisplayName("Guardar vuelo")
+    @DisplayName("Save flight")
     void saveForm() throws Exception {
 
         mvc.perform(post("/flights").with(csrf())).andExpectAll(

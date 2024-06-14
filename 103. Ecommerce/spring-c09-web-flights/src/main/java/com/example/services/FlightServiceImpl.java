@@ -1,7 +1,6 @@
 package com.example.services;
 
 import com.example.entities.Flight;
-import com.example.entities.Ticket;
 import com.example.repositories.FlightRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Example;
@@ -44,15 +43,15 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public void deleteById(Long id) {
-        // desasociar tickets
+        // disassociate tickets
 //        List<Ticket> tickets = ticketService.findAllByFlightId(id);
 //        for (Ticket ticket : tickets)
-//            ticket.setFlight(null); // desasociar vuelo
+//            ticket.setFlight(null); // disassociate flight
 //
 //        ticketService.saveAll(tickets);
 
 //        ticketService.findAllByFlightId(id).forEach(ticket -> System.out.println(ticket)); // lambda
-//        ticketService.findAllByFlightId(id).forEach(System.out::println); // method reference //abreviación de una lambda
+//        ticketService.findAllByFlightId(id).forEach(System.out::println);// method reference //abbreviation of a lambda
 //        ticketService.findAllByFlightId(id).forEach(ticket -> ticket.setFlight(null));
 
 //        List<Ticket> tickets = ticketService.findAllByFlightId(id);

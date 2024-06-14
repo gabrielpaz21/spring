@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Getter
 @Setter
 @ToString
@@ -44,4 +43,5 @@ public class Flight {
         this.airportFrom = StringUtils.hasLength(airportFrom) ? airportFrom : null;
         this.airportTo = StringUtils.hasLength(airportTo) ? airportTo : null;
     }
+
 }

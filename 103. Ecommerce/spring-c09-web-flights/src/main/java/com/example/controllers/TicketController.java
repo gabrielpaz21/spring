@@ -22,14 +22,14 @@ public class TicketController {
     private final FlightService flightService;
     private final FileService fileService;
 
-    // recupera los tickets sin filtrar
+    // retrieve unfiltered tickets
     @GetMapping("tickets") 
     public String findAll(Model model) {
         model.addAttribute("tickets", ticketService.findAll());
         return "ticket/ticket-list"; 
     }
 
-    // recupera los tickets del usuario con la sesión iniciada
+    // retrieves the logged-in user's tickets
     @GetMapping("user-tickets")
     public String findAllByCurrentUser(Model model) {
         Passenger currentUser = (Passenger) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,7 +54,7 @@ public class TicketController {
             ticketService.buyTicketForCurrentUser(id);
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("error", "No se ha podido completar la compra");
+            model.addAttribute("error", "The purchase could not be completed");
             model.addAttribute("tickets", ticketService.findAll());
             return "ticket/ticket-list";
         }
@@ -64,11 +64,11 @@ public class TicketController {
     @GetMapping("tickets/create")
     public String showCreateForm(Model model) {
         model.addAttribute("ticket", new Ticket());
-        model.addAttribute("flights", flightService.findAll()); // filtrar y ordenar por fecha
+        model.addAttribute("flights", flightService.findAll()); // filter and sort by date
         return "ticket/ticket-form";
     }
 
-    // Guardar formulario para crear/editar un vuelo
+    // Save form to create/edit a flight
     @PostMapping("tickets")
     public String saveForm(Model model,
                            @ModelAttribute Ticket ticket,
@@ -82,16 +82,16 @@ public class TicketController {
             String fileName = fileService.storeInFileSystem(file);
             ticket.setImageUrl(fileName); // string
             ticketService.save(ticket);
-            return "redirect:/tickets"; // redirección a controlador findAll
+            return "redirect:/tickets"; // redirect to findAll controller
         } catch (Exception e) {
-            model.addAttribute("error", "No se ha podido guardar la imagen");
+            model.addAttribute("error", "Could not save image");
             model.addAttribute("tickets", ticketService.findAll());
             return "ticket/ticket-list";
         }
 
     }
 
-    // Mostrar formulario para editar
+    // Show form to edit
     @GetMapping("tickets/{id}/edit")
     public String showEditForm(Model model, @PathVariable Long id) {
         Optional<Ticket> ticketOptional = ticketService.findById(id);
@@ -102,7 +102,7 @@ public class TicketController {
             model.addAttribute("error", "Not Found");
         }
 
-        return "ticket/ticket-form"; // vista
+        return "ticket/ticket-form"; // view
     }
 
     @GetMapping("tickets/{id}/delete")
@@ -110,4 +110,5 @@ public class TicketController {
         ticketService.deleteById(id);
         return "redirect:/tickets";
     }
+
 }

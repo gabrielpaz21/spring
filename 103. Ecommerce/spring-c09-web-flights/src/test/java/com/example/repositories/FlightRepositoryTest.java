@@ -1,6 +1,5 @@
 package com.example.repositories;
 
-
 import com.example.entities.Flight;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TicketController.class)
-@DisplayName("Controlador de entidad Ticket")
+@DisplayName("Ticket entity handler")
 class TicketControllerTest {
 
     @Autowired
@@ -37,16 +37,16 @@ class TicketControllerTest {
 
     @Test
     @WithMockUser
-    @DisplayName("Buscar todos los tickets")
+    @DisplayName("Search all tickets")
     void findAllTest() throws Exception {
 
-        // configurar mock
+        // configure mock
         when(ticketService.findAll()).thenReturn(new ArrayList<>(List.of(
                 new Ticket(),
                 new Ticket()
         )));
 
-        // ejecutar petición /tickets
+        // execute request /tickets
         mvc.perform(get("/tickets")).andExpectAll(
                 status().isOk(),
                 content().contentType("text/html;charset=UTF-8"),
@@ -55,13 +55,13 @@ class TicketControllerTest {
                 view().name("ticket/ticket-list")
         );
 
-        // verificaciones
+        // verifications
         verify(ticketService).findAll();
     }
 
     @Test
     @WithMockUser
-    @DisplayName("Mostrar formulario creación de nuevo ticket")
+    @DisplayName("Show new ticket creation form")
     void showCreateFormTest() throws Exception {
 
         List<Flight> flights = new ArrayList<>(List.of(
@@ -79,7 +79,6 @@ class TicketControllerTest {
                 view().name("ticket/ticket-form")
         );
         verify(flightService).findAll();
-
 
     }
 

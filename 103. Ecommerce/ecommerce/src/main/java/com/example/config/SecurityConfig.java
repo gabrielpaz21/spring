@@ -12,30 +12,27 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception{
+            throws Exception {
 
         http.authorizeHttpRequests(requests ->
-                requests.requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/js/**").permitAll()
-                        .requestMatchers("/files/**").permitAll()
-                        .requestMatchers("/webjars/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                        .anyRequest().authenticated()
+                        requests.requestMatchers("/css/**").permitAll()
+                                .requestMatchers("/js/**").permitAll()
+                                .requestMatchers("/files/**").permitAll()
+                                .requestMatchers("/webjars/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+                                .anyRequest().authenticated()
                 )
-                .formLogin()
-                .defaultSuccessUrl("/products", true)
-                .and()
-                .logout()
-                .logoutSuccessUrl("/products");
+                .formLogin(formLoginCustomizer ->
+                        formLoginCustomizer.defaultSuccessUrl("/products", true))
+                .logout(logoutCustomizer -> logoutCustomizer.logoutSuccessUrl("/products"));
 
         return http.build();
     }
-
 
 }

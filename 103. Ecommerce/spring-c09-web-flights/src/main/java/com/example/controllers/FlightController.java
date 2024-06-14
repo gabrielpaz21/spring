@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -18,7 +17,7 @@ public class FlightController {
 
     private final FlightService flightService;
 
-    // Listado de vuelos
+    // Flight list
     @GetMapping("flights") // URL
     public String findAll(Model model,
                           @RequestParam(defaultValue = "") String airportFrom,
@@ -45,7 +44,7 @@ public class FlightController {
         return "flight/flight-list"; // vista
     }
 
-    // Detalle de un vuelo concreto por id
+    // Detail of a specific flight by id
     @GetMapping("flights/{id}")
     public String findById(Model model, @PathVariable Long id) {
         Optional<Flight> flightOptional = flightService.findById(id);
@@ -57,21 +56,21 @@ public class FlightController {
         return "flight/flight-detail"; // vista
     }
 
-    // Mostrar formulario para crear UN (1) nuevo vuelo
+    // Show form to create ONE (1) new flight
     @GetMapping("flights/create")
     public String showCreateForm(Model model) {
         model.addAttribute("flight", new Flight());
         return "flight/flight-form";
     }
 
-    // Guardar formulario para crear/editar un vuelo
+    // Save form to create/edit a flight
     @PostMapping("flights")
     public String saveForm(@ModelAttribute Flight flight) {
         flightService.save(flight);
-        return "redirect:/flights"; // redirección a controlador findAll
+        return "redirect:/flights"; // redirect to findAll handler
     }
 
-    // Mostrar formulario para editar
+    // Show form to edit
     @GetMapping("flights/{id}/edit")
     public String showEditForm(Model model, @PathVariable Long id) {
         Optional<Flight> flightOptional = flightService.findById(id);
@@ -80,7 +79,7 @@ public class FlightController {
         else
             model.addAttribute("error", "Not Found");
 
-        return "flight/flight-form"; // vista
+        return "flight/flight-form"; // view
     }
 
     @GetMapping("flights/{id}/delete")

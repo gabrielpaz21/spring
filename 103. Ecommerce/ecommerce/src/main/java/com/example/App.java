@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 @SpringBootApplication
 public class App {
@@ -26,8 +25,8 @@ public class App {
     public CommandLineRunner initData(
             UserEntityRepository userRepo,
             ProductRepository productRepo,
-            PasswordEncoder encoder
-    ){
+            PasswordEncoder encoder){
+
         return args -> {
             UserEntity user1 = new UserEntity(
                     "user1", encoder.encode("1234"), "user1@localhost", new ArrayList<>(List.of(UserAuthority.ADMIN, UserAuthority.USER))
@@ -50,7 +49,6 @@ public class App {
             productRepo.saveAll(products);
 
         };
-
 
     }
 

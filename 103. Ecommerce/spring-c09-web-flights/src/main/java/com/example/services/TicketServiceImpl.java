@@ -61,19 +61,19 @@ public class TicketServiceImpl implements TicketService {
 
         Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
 
-        // comprobar si el ticket ya tiene pasajero
+        // check if the ticket already has a passenger
         if (ticket.getPassenger() != null)
             throw new TicketAlreadyPurchasedException();
 
-        // comprobar si el passenger NO tiene saldo suficiente
+        // check if the passenger does NOT have a sufficient balance
         if (ticket.getPrice() > passenger.getBalance())
             throw new InsufficientBalanceException();
 
-        // asociar passenger a ticket y guardar
+        // associate passenger with ticket and save
         ticket.setPassenger(passenger);
         this.save(ticket);
 
-        // restar saldo a passenger
+        // subtract balance from passenger
         Double balanceAfterBuy = passenger.getBalance() - ticket.getPrice();
         passenger.setBalance(balanceAfterBuy);
         passengerService.save(passenger);

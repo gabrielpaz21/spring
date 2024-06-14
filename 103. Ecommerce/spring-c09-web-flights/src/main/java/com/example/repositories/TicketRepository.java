@@ -1,6 +1,5 @@
 package com.example.repositories;
 
-import com.example.entities.Flight;
 import com.example.entities.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 

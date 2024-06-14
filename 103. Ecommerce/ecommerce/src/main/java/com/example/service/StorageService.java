@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Service
 public class StorageService {
@@ -25,7 +26,7 @@ public class StorageService {
     }
 
     public String store(MultipartFile file) {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         String extension = StringUtils.getFilenameExtension(filename);
         String justFilename = filename.replace("." + extension, "");
         String storedFilename = System.currentTimeMillis() + "_" + justFilename + "." + extension;
@@ -57,11 +58,13 @@ public class StorageService {
         try {
             Path file = load(filename);
             Resource resource = new UrlResource(file.toUri());
-            if (!resource.exists() || !resource.isReadable()) throw new StorageException("Could not read file: " + filename);
+            if (!resource.exists() || !resource.isReadable())
+                throw new StorageException("Could not read file: " + filename);
             return resource;
         } catch (MalformedURLException e) {
             throw new StorageException("Could not read file: " + filename, e);
         }
     }
+
 }
 

@@ -7,7 +7,6 @@ import com.example.repository.OrderRepository;
 import com.example.repository.ProductRepository;
 import com.example.repository.UserEntityRepository;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +22,23 @@ import java.util.Optional;
 @Controller
 public class ShopCartController {
 
-    @Autowired
-    private OrderRepository orderRepo;
+    private final OrderRepository orderRepo;
 
-    @Autowired
-    private ProductRepository productRepo;
+    private final ProductRepository productRepo;
 
-    @Autowired
-    private UserEntityRepository userRepo;
+    private final UserEntityRepository userRepo;
 
-    @Autowired
-    private HttpSession session;
+    private final HttpSession session;
+
+    public ShopCartController(OrderRepository orderRepo,
+                              ProductRepository productRepo,
+                              UserEntityRepository userRepo,
+                              HttpSession session) {
+        this.orderRepo = orderRepo;
+        this.productRepo = productRepo;
+        this.userRepo = userRepo;
+        this.session = session;
+    }
 
     @GetMapping("/shopcart")
     public String show(Model model){
@@ -97,4 +102,5 @@ public class ShopCartController {
 
         return products.stream().mapToDouble(Product::getPrice).sum();
     }
+
 }

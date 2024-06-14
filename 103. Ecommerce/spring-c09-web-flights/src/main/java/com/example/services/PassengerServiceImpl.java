@@ -22,8 +22,8 @@ public class PassengerServiceImpl implements PassengerService, UserDetailsServic
     }
 
     @Override
-    public Passenger save(Passenger passenger) {
-        return passengerRepo.save(passenger);
+    public void save(Passenger passenger) {
+        passengerRepo.save(passenger);
     }
 
     @Override

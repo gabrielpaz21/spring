@@ -27,7 +27,7 @@ public class FileServiceImpl implements FileService {
         if(file == null
                 || !StringUtils.hasLength(file.getOriginalFilename())
                 || StringUtils.getFilenameExtension(file.getOriginalFilename()) == null)
-            throw new IllegalArgumentException("Imagen incorrecta");
+            throw new IllegalArgumentException("Wrong image");
 
         String fileNameWithExtension = file.getOriginalFilename(); // logo_impresionante.jpg
         String extension = StringUtils.getFilenameExtension(fileNameWithExtension); // jpg
@@ -39,7 +39,7 @@ public class FileServiceImpl implements FileService {
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("Error al guardar la imagen");
+            throw new IllegalArgumentException("Error saving image");
         }
         return fileNameToSave;
     }

@@ -26,7 +26,7 @@ public class Passenger implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    private Double balance; // saldo en euros
+    private Double balance; // balance in euros
 
     @OneToMany(mappedBy = "passenger")
     @ToString.Exclude
