@@ -23,6 +23,11 @@ public class StorageService {
 
     public StorageService() {
         this.rootLocation = Paths.get("uploads");
+        try {
+            Files.createDirectories(rootLocation);
+        } catch (IOException e){
+            throw new StorageException("Could not initialize storage location", e);
+        }
     }
 
     public String store(MultipartFile file) {

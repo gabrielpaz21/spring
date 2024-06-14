@@ -41,7 +41,7 @@ public class ShopCartController {
     }
 
     @GetMapping("/shopcart")
-    public String show(Model model){
+    public String show(Model model) {
         List<Long> productIds = Optional.ofNullable((List<Long>) session.getAttribute("shopcart_products"))
                 .orElse(new ArrayList<>());
 
@@ -50,19 +50,19 @@ public class ShopCartController {
     }
 
     @GetMapping("/shopcart/add/{id}")
-    public String add(@PathVariable Long id){
+    public String add(@PathVariable Long id) {
 
         List<Long> productIds = Optional.ofNullable((List<Long>) session.getAttribute("shopcart_products"))
                 .orElse(new ArrayList<>());
 
-        if(!productIds.contains(id)) productIds.add(id);
+        if (!productIds.contains(id)) productIds.add(id);
 
         session.setAttribute("shopcart_products", productIds);
         return "redirect:/shopcart";
     }
 
     @GetMapping("/shopcart/remove/{id}")
-    public String remove(@PathVariable Long id){
+    public String remove(@PathVariable Long id) {
 
         List<Long> productIds = Optional.ofNullable((List<Long>) session.getAttribute("shopcart_products"))
                 .orElse(new ArrayList<>());
@@ -74,7 +74,7 @@ public class ShopCartController {
     }
 
     @GetMapping("/shopcart/checkout")
-    public String checkout(){
+    public String checkout() {
         List<Long> productIds = Optional.ofNullable((List<Long>) session.getAttribute("shopcart_products"))
                 .orElse(new ArrayList<>());
         List<Product> products = productRepo.findAllById(productIds);
@@ -95,7 +95,7 @@ public class ShopCartController {
     }
 
     @ModelAttribute("shopcart_price")
-    public Double calculateTotal(){
+    public Double calculateTotal() {
         List<Long> productIds = Optional.ofNullable((List<Long>) session.getAttribute("shopcart_products"))
                 .orElse(new ArrayList<>());
         List<Product> products = productRepo.findAllById(productIds);

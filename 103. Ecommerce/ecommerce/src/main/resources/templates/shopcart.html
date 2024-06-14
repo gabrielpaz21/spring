@@ -26,31 +26,28 @@
                     </div>
                     <table class="table table-striped table-responsive-md">
                         <thead>
-                        <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Actions</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="product: ${products}" class="text-center">
-                            <th>
-                                <img
-                                        th:src="${#strings.isEmpty(product.image)}
-                            ? 'https://dummyimage.com/640x360/fff/aaa'
-                            : ${product.image}"
-                                        class="img-fluid align-content-center" alt="Image"
-                                        style="height: 300px;">
-
-                            </th>
-                            <td th:text="${product.name}"></td>
-                            <td th:text="${#numbers.formatCurrency(product.price)}"></td>
-                            <td>
-                                <a class="btn btn-danger" sec:authorize="isAuthenticated()" th:href="@{/shopcart/remove/{id}(id=${product.id})}">Remove from cart</a>
-                            </td>
-
-                        </tr>
+                            <tr th:each="product: ${products}" class="text-center">
+                                <th>
+                                    <img th:src="${#strings.isEmpty(product.image)}
+                                            ? 'https://dummyimage.com/640x360/fff/aaa'
+                                            : ${product.image}"
+                                            class="img-fluid align-content-center" alt="Image"
+                                            style="height: 300px;">
+                                </th>
+                                <td th:text="${product.name}"></td>
+                                <td th:text="${#numbers.formatCurrency(product.price)}"></td>
+                                <td>
+                                    <a class="btn btn-danger" sec:authorize="isAuthenticated()" th:href="@{/shopcart/remove/{id}(id=${product.id})}">Remove from cart</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 

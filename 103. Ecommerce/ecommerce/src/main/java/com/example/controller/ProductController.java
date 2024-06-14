@@ -19,7 +19,8 @@ public class ProductController {
 
     private final StorageService storageService;
 
-    public ProductController(ProductRepository productRepo, StorageService storageService) {
+    public ProductController(ProductRepository productRepo,
+                             StorageService storageService) {
         this.productRepo = productRepo;
         this.storageService = storageService;
     }
